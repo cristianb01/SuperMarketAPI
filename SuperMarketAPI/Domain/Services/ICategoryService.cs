@@ -11,5 +11,6 @@ namespace SuperMarketAPI.Domain.Services
         Task<CategoryResponse> SaveAsync(Category category);
         Task<CategoryResponse> UpdateAsync(int id, Category category);
         Task<CategoryResponse> DeleteAsync(int id);
+        Task<CategoryResponse> FindByIdAsync(int id);
     }
 }

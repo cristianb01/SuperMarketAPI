@@ -35,7 +35,7 @@ namespace SuperMarketAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> ListAsync(int id)
+        public async Task<IActionResult> GetProduct(int id)
         {
             var productResponse = await _productService.FindByIdAsync(id);
             if(!productResponse.Success)

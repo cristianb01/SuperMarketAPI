@@ -20,6 +20,18 @@ namespace SuperMarketAPI.Services
             this._unitOfWork = unitOfWork;
         }
 
+        public async Task<CategoryResponse> FindByIdAsync(int id)
+        {
+            var existingCategory = await _categoryRepository.FindByIdAsync(id);
+
+            if(existingCategory == null)
+            {
+                return new CategoryResponse("Category could not be found");
+            }
+
+            return new CategoryResponse(existingCategory);
+        }
+
         public async Task<IEnumerable<Category>> ListAsync()
         {
             return await _categoryRepository.ListAsync();

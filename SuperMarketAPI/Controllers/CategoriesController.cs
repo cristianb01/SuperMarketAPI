@@ -33,6 +33,21 @@ namespace SuperMarketAPI.Controllers
         }
 
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCategory(int id)
+        {
+            var categoryResponse = await _categoryService.FindByIdAsync(id);
+
+            if (!categoryResponse.Success)
+            {
+                return BadRequest(categoryResponse.Message);
+            }
+
+            var categoryResource = _mapper.Map<CategoryResource>(categoryResponse.Category);
+
+            return Ok(categoryResource);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveCategoryResource resource)
         {
