@@ -15,6 +15,9 @@ namespace SuperMarketAPI.Mapping
             CreateMap<SaveCategoryResource, Category>();
             CreateMap<SaveProductResource, Product>();
             CreateMap<CategoryResource, Category>();
+            CreateMap<SavePurchaseResource, Purchase>();
+            CreateMap<ProductPurchaseResource, ProductPurchase>();
+            CreateMap<SaveProductPurchaseResource, ProductPurchase>();
         }
     }
 }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuperMarketAPI.Persistence.Contexts;
 
 namespace SuperMarketAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200522184813_InitialDb")]
+    partial class InitialDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,12 +61,17 @@ namespace SuperMarketAPI.Migrations
                         .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
                         .HasMaxLength(50);
 
+                    b.Property<int?>("PurchaseId")
+                        .HasColumnType("int");
+
                     b.Property<short>("QuantityInPackage")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("PurchaseId");
 
                     b.ToTable("Products");
                 });
@@ -116,6 +123,10 @@ namespace SuperMarketAPI.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SuperMarketAPI.Models.Purchase", null)
+                        .WithMany("Products")
+                        .HasForeignKey("PurchaseId");
                 });
 
             modelBuilder.Entity("SuperMarketAPI.Models.ProductPurchase", b =>
@@ -127,7 +138,7 @@ namespace SuperMarketAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("SuperMarketAPI.Models.Purchase", "Purchase")
-                        .WithMany("ProductPurchase")
+                        .WithMany()
                         .HasForeignKey("PurchaseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

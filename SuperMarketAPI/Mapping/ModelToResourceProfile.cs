@@ -15,9 +15,11 @@ namespace SuperMarketAPI.Mapping
         {
             CreateMap<Category, CategoryResource>();
 
-            CreateMap<Product, ProductResource>()
-                .ForMember(src => src.UnitOfMeasurement,
-                           opt => opt.MapFrom(src => src.UnitOfMeasurement.ToDescriptionString()));
+            CreateMap<Product, ProductResource>();
+
+            CreateMap<Purchase, PurchaseResource>();
+
+            CreateMap<ProductPurchase, ProductPurchaseResource>();
         }
     }
 }

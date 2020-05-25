@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SuperMarketAPI.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace SuperMarketAPI.Services
 {
@@ -14,14 +16,16 @@ namespace SuperMarketAPI.Services
 
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
-
+        public AppDbContext _context; 
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork,
+                                AppDbContext context)
         {
             this._productRepository = repository;
             this._categoryRepository = categoryRepository;
             this._unitOfWork = unitOfWork;
+            this._context = context;
         }
 
 
@@ -52,9 +56,8 @@ namespace SuperMarketAPI.Services
 
             await _productRepository.SaveAsync(product);
             await _unitOfWork.CompleteAsync();
-
+            //TODO verificar si se puede simplificar el llamado al siguiente metodo
             var finalProduct = await _productRepository.FindByIdAsync(product.Id);
-
             return new ProductResponse(finalProduct);
         }
     }
