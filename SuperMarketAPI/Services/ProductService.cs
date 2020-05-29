@@ -48,10 +48,16 @@ namespace SuperMarketAPI.Services
         }
         public async Task<ProductResponse> SaveAsync(Product product)
         {
-            bool existsCategory = await _categoryRepository.ExistsCategory(product.CategoryId);
+            bool existsCategory = await _categoryRepository.FindByIdAsync(product.CategoryId) != null;
             if (!existsCategory)
             {
                 return new ProductResponse("The specified category does not exist");
+            }
+
+            bool alreadyExists = await _productRepository.Exists(product.Name);
+            if (alreadyExists)
+            {
+                return new ProductResponse("The product already exists");
             }
 
             await _productRepository.SaveAsync(product);

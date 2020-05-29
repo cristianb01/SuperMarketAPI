@@ -39,9 +39,9 @@ namespace SuperMarketAPI.Persistence.Repositories
             _context.Categories.Remove(category);
         }
 
-        public async Task<bool> ExistsCategory(int id)
+        public async Task<bool> ExistsCategory(string name)
         {
-            return await _context.Categories.AnyAsync(c => c.Id == id);
+            return await _context.Categories.AnyAsync(c => c.Name == name);
         }
     }
 }

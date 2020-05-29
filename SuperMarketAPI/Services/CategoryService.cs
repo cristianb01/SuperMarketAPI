@@ -39,6 +39,12 @@ namespace SuperMarketAPI.Services
 
         public async Task<CategoryResponse> SaveAsync(Category category)
         {
+            bool alreadyExists = await _categoryRepository.ExistsCategory(category.Name);
+            if (alreadyExists)
+            {
+                return new CategoryResponse("The category already exists");
+            }
+
             try
             {
                 await _categoryRepository.AddAsync(category);

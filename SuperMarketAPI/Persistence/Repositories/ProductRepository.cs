@@ -34,5 +34,10 @@ namespace SuperMarketAPI.Persistence.Repositories
             await _context.Products.AddAsync(product);
 
         }
+
+        public async Task<bool> Exists(string name)
+        {
+            return await _context.Products.AnyAsync(p => p.Name == name);
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace SuperMarketAPI.Domain.Repositories
         Task<IEnumerable<Product>> ListAsync();
         Task SaveAsync(Product product);
         Task<Product> FindByIdAsync(int id);
+        Task<bool> Exists(string name);
     }
 }

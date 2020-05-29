@@ -50,6 +50,7 @@ namespace SuperMarketAPI
                     builder =>
                     {
                         builder.WithOrigins("http://localhost:4200");
+                        builder.WithHeaders("content-type");
                     });
             });
 
@@ -67,9 +68,9 @@ namespace SuperMarketAPI
             app.UseHttpsRedirection();
 
             
+            app.UseCors();
 
             app.UseRouting();
-            app.UseCors();
 
             app.UseAuthorization();
 

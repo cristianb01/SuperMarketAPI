@@ -11,6 +11,7 @@ namespace SuperMarketAPI.Resources
         [Required]
         public string Name { get; set; }
         [Required]
+        [Range(1,48)]
         public int QuantityInPackage { get; set; }
         [Required]
         public int  CategoryId { get; set; }
