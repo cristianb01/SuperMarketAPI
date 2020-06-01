@@ -13,5 +13,6 @@ namespace SuperMarketAPI.Domain.Repositories
         Task SaveAsync(Product product);
         Task<Product> FindByIdAsync(int id);
         Task<bool> Exists(string name);
+        void Remove(Product product);
     }
 }

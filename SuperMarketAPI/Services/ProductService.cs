@@ -16,7 +16,6 @@ namespace SuperMarketAPI.Services
 
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
-        public AppDbContext _context; 
         private readonly IUnitOfWork _unitOfWork;
 
         public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork,
@@ -25,7 +24,6 @@ namespace SuperMarketAPI.Services
             this._productRepository = repository;
             this._categoryRepository = categoryRepository;
             this._unitOfWork = unitOfWork;
-            this._context = context;
         }
 
 
@@ -65,6 +63,29 @@ namespace SuperMarketAPI.Services
             //TODO verificar si se puede simplificar el llamado al siguiente metodo
             var finalProduct = await _productRepository.FindByIdAsync(product.Id);
             return new ProductResponse(finalProduct);
+        }
+
+        public async Task<ProductResponse> DeleteAsync(int id)
+        {
+            var existingProduct = await _productRepository.FindByIdAsync(id);
+
+            if(existingProduct == null)
+            {
+                return new ProductResponse("The specified product does not exist");
+            }
+
+            try
+            {
+                _productRepository.Remove(existingProduct);
+                await _unitOfWork.CompleteAsync();
+
+                return new ProductResponse(existingProduct);
+            }
+            catch(Exception e)
+            {
+                return new ProductResponse($"An error ocurred while deleting the product: " + e);
+            }
+
         }
     }
 }

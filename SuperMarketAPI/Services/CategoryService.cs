@@ -101,7 +101,7 @@ namespace SuperMarketAPI.Services
             catch (Exception ex)
             {
                 // Do some logging stuff
-                return new CategoryResponse($"An error occurred when deleting the category: {ex.Message}");
+                return new CategoryResponse($"An error occurred while deleting the category: {ex.Message}");
             }
         }
     }

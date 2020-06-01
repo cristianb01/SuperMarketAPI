@@ -39,5 +39,10 @@ namespace SuperMarketAPI.Persistence.Repositories
         {
             return await _context.Products.AnyAsync(p => p.Name == name);
         }
+
+        public void Remove(Product product)
+        {
+            _context.Products.Remove(product);
+        }
     }
 }

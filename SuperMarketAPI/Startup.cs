@@ -51,6 +51,7 @@ namespace SuperMarketAPI
                     {
                         builder.WithOrigins("http://localhost:4200");
                         builder.WithHeaders("content-type");
+                        builder.AllowAnyMethod();
                     });
             });
 

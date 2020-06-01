@@ -12,5 +12,6 @@ namespace SuperMarketAPI.Domain.Services
         Task<IEnumerable<Product>> ListAsync();
         Task<ProductResponse> SaveAsync(Product product);
         Task<ProductResponse> FindByIdAsync(int id);
+        Task<ProductResponse> DeleteAsync(int id);
     }
 }
