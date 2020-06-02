@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+
 using System.Web.Http.Cors;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -55,7 +57,6 @@ namespace SuperMarketAPI.Controllers
             {
                 return BadRequest(ModelState.GetErrorMessages());
             }
-
 
             var product = _mapper.Map<Product>(resource);
 

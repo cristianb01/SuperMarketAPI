@@ -2,6 +2,7 @@
 using SuperMarketAPI.Extensions;
 using SuperMarketAPI.Models;
 using SuperMarketAPI.Resources;
+using SuperMarketAPI.Resources.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace SuperMarketAPI.Mapping
             CreateMap<Purchase, PurchaseResource>();
 
             CreateMap<ProductPurchase, ProductPurchaseResource>();
+
+            CreateMap<User, UserResource>();
         }
     }
 }
