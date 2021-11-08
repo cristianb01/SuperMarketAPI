@@ -29,9 +29,9 @@ namespace SuperMarketAPI.Persistence.Repositories
         }
 
 
-        public async Task SaveAsync(Product product)
+        public async Task<Product> SaveAsync(Product product)
         {
-            await _context.Products.AddAsync(product);
+            return (await _context.Products.AddAsync(product)).Entity;
 
         }
 

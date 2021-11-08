@@ -18,8 +18,7 @@ namespace SuperMarketAPI.Services
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork,
-                                AppDbContext context)
+        public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
             this._productRepository = repository;
             this._categoryRepository = categoryRepository;
@@ -58,11 +57,9 @@ namespace SuperMarketAPI.Services
                 return new ProductResponse("The product already exists");
             }
 
-            await _productRepository.SaveAsync(product);
+            var addedProduct = await _productRepository.SaveAsync(product);
             await _unitOfWork.CompleteAsync();
-            //TODO verificar si se puede simplificar el llamado al siguiente metodo
-            var finalProduct = await _productRepository.FindByIdAsync(product.Id);
-            return new ProductResponse(finalProduct);
+            return new ProductResponse(addedProduct);
         }
 
         public async Task<ProductResponse> DeleteAsync(int id)
